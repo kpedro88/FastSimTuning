@@ -3,7 +3,7 @@
 #include "FWCore/Utilities/interface/Exception.h"
 
 // user include files
-#include "ForwardCaloUpgrade/FullSim/interface/FullSimEtaTimeAnalyzer.h"
+#include "FastSimTuning/PionResponse/interface/FullSimEtaTimeAnalyzer.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
