@@ -91,8 +91,8 @@ FullSimPionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
 
 	iSetup.get<CaloGeometryRecord>().get (geometry);
 
-	double sum_ecal, sum_hcal;
-	sum_ecal = sum_hcal = 0;
+	double sum_ecal, sum_hcal, sum_hcal_un, sum_hf;
+	sum_ecal = sum_hcal = sum_hcal_un = sum_hf = 0;
 	double s_eta, s_phi;
 	s_eta = s_phi = 0;
 	
@@ -157,6 +157,10 @@ FullSimPionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
 					double mean_pe = genSH->energy();
 					double smeared_pe = poisson->fire(mean_pe*simHitToPhotoelectrons[depth-1])/simHitToPhotoelectrons[depth-1];
 					sum_hcal += smeared_pe/samplingHF[depth-1];
+					
+					//other HF options
+					sum_hcal_un += mean_pe/samplingHF[depth-1];
+					sum_hf += mean_pe;
 				}
 				else if(det == HcalOuter) sum_hcal += samplingHO[cell.ietaAbs()-1]*(genSH->energy());
 			}
@@ -165,6 +169,8 @@ FullSimPionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
 	
 	e_ecal = sum_ecal;
 	e_hcal = sum_hcal;
+	e_hcal_unsmeared = sum_hcal_un;
+	e_hf = sum_hf;
 	gen_eta = s_eta;
 	gen_phi = s_phi;
 	
@@ -187,6 +193,8 @@ FullSimPionAnalyzer::beginRun(edm::Run const&, edm::EventSetup const&) {
 	tree_tot = new TTree("Total", "Energy Calorimeter info");
 	tree_tot->Branch("ecal",&e_ecal,"e_ecal/D");
 	tree_tot->Branch("hcal",&e_hcal,"e_hcal/D");
+	tree_tot->Branch("hcal_unsmeared",&e_hcal,"e_hcal_unsmeared/D");
+	tree_tot->Branch("hf",&e_hcal,"e_hf/D");
 	tree_tot->Branch("eta",&gen_eta,"gen_eta/D");
 	tree_tot->Branch("phi",&gen_phi,"gen_phi/D");
 }
