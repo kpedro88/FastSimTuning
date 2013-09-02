@@ -55,7 +55,7 @@ class FullSimPionAnalyzer : public edm::EDAnalyzer {
 		//member variables
 		TFile* out_file;
 		TTree* tree_tot;
-		double e_ecal, e_hcal;
+		double e_ecal, e_hcal, e_hcal_unsmeared, e_hf;
 		double gen_eta, gen_phi;
 		std::string outname;
 		std::vector<double> samplingHBHE;
