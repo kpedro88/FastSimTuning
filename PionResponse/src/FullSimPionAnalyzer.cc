@@ -150,7 +150,10 @@ FullSimPionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
 			
 			if(dR < dRcut) {
 				HcalSubdetector det = cell.subdet();
-				if(det == HcalBarrel || det == HcalEndcap) sum_hcal += samplingHBHE[cell.ietaAbs()-1]*(genSH->energy());
+				if(det == HcalBarrel || det == HcalEndcap) {
+					sum_hcal += samplingHBHE[cell.ietaAbs()-1]*(genSH->energy());
+					sum_hcal_un += samplingHBHE[cell.ietaAbs()-1]*(genSH->energy());
+				}
 				else if(det == HcalForward) {
 					//HF is difficult
 					double depth = cell.depth();
@@ -162,7 +165,10 @@ FullSimPionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iS
 					sum_hcal_un += mean_pe/samplingHF[depth-1];
 					sum_hf += mean_pe;
 				}
-				else if(det == HcalOuter) sum_hcal += samplingHO[cell.ietaAbs()-1]*(genSH->energy());
+				else if(det == HcalOuter) {
+					sum_hcal += samplingHO[cell.ietaAbs()-1]*(genSH->energy());
+					sum_hcal_un += samplingHO[cell.ietaAbs()-1]*(genSH->energy());
+				}
 			}
 		}
 	}
