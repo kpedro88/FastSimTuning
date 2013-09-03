@@ -193,8 +193,8 @@ FullSimPionAnalyzer::beginRun(edm::Run const&, edm::EventSetup const&) {
 	tree_tot = new TTree("Total", "Energy Calorimeter info");
 	tree_tot->Branch("ecal",&e_ecal,"e_ecal/D");
 	tree_tot->Branch("hcal",&e_hcal,"e_hcal/D");
-	tree_tot->Branch("hcal_unsmeared",&e_hcal,"e_hcal_unsmeared/D");
-	tree_tot->Branch("hf",&e_hcal,"e_hf/D");
+	tree_tot->Branch("hcal_unsmeared",&e_hcal_unsmeared,"e_hcal_unsmeared/D");
+	tree_tot->Branch("hf",&e_hf,"e_hf/D");
 	tree_tot->Branch("eta",&gen_eta,"gen_eta/D");
 	tree_tot->Branch("phi",&gen_phi,"gen_phi/D");
 }
